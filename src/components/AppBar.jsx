@@ -25,7 +25,9 @@ const AppBar = () => {
         <Text fontWeight={"bold"} style={styles.appBarText} onPress={() => navigate("/")}>
           Repositories
         </Text>
-        <Text onPress={() => navigate("signin")}>Sign in</Text>
+        <Text style={styles.appBarText} onPress={() => navigate("signin")}>
+          Sign in
+        </Text>
       </ScrollView>
     </View>
   );
