@@ -8,12 +8,19 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.appBarBackground,
   },
+  appBarText: {
+    color: theme.colors.onAppBar,
+    fontWeight: theme.fontWeights.bold,
+    padding: 10,
+  },
 });
 
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <Text onPress={() => console.log("Pressed the Repositories!")}>Repositories</Text>
+      <Text style={styles.appBarText} onPress={() => console.log("Pressed the Repositories!")}>
+        Repositories
+      </Text>
     </View>
   );
 };
