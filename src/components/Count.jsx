@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import theme from "../theme";
+import { View, StyleSheet } from "react-native";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   countsContainer: {
@@ -12,12 +12,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   countNumberText: {
-    fontWeight: theme.fontWeights.bold,
     textAlign: "center",
   },
   countTitleText: {
     textAlign: "center",
-    color: theme.colors.textSecondary,
   },
 });
 
@@ -33,20 +31,36 @@ const Count = ({ item }) => {
   return (
     <View style={styles.countsContainer}>
       <View style={styles.countContainer}>
-        <Text style={styles.countNumberText}>{handleDisplayCounts(item.stargazersCount)}</Text>
-        <Text style={styles.countTitleText}>Stars</Text>
+        <Text fontWeight={"bold"} style={styles.countNumberText}>
+          {handleDisplayCounts(item.stargazersCount)}
+        </Text>
+        <Text color={"textSecondary"} style={styles.countTitleText}>
+          Stars
+        </Text>
       </View>
       <View style={styles.countContainer}>
-        <Text style={styles.countNumberText}>{handleDisplayCounts(item.forksCount)}</Text>
-        <Text style={styles.countTitleText}>Forks</Text>
+        <Text fontWeight={"bold"} style={styles.countNumberText}>
+          {handleDisplayCounts(item.forksCount)}
+        </Text>
+        <Text color={"textSecondary"} style={styles.countTitleText}>
+          Forks
+        </Text>
       </View>
       <View style={styles.countContainer}>
-        <Text style={styles.countNumberText}>{handleDisplayCounts(item.reviewCount)}</Text>
-        <Text style={styles.countTitleText}>Reviews</Text>
+        <Text fontWeight={"bold"} style={styles.countNumberText}>
+          {handleDisplayCounts(item.reviewCount)}
+        </Text>
+        <Text color={"textSecondary"} style={styles.countTitleText}>
+          Reviews
+        </Text>
       </View>
       <View style={styles.countContainer}>
-        <Text style={styles.countNumberText}>{handleDisplayCounts(item.ratingAverage)}</Text>
-        <Text style={styles.countTitleText}>Rating</Text>
+        <Text fontWeight={"bold"} style={styles.countNumberText}>
+          {handleDisplayCounts(item.ratingAverage)}
+        </Text>
+        <Text color={"textSecondary"} style={styles.countTitleText}>
+          Rating
+        </Text>
       </View>
     </View>
   );

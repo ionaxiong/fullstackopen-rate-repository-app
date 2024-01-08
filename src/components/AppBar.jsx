@@ -1,26 +1,32 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView, Platform } from "react-native";
 import Constants from "expo-constants";
 import theme from "../theme";
+import { useNavigate } from "react-router-native";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Platform.OS === "web" ? 20 : Constants.statusBarHeight,
     backgroundColor: theme.colors.appBarBackground,
+    padding: 20,
   },
   appBarText: {
     color: theme.colors.onAppBar,
-    fontWeight: theme.fontWeights.bold,
-    padding: 10,
+    marginRight: 20,
   },
 });
 
 const AppBar = () => {
+  const navigate = useNavigate();
   return (
     <View style={styles.container}>
-      <Text style={styles.appBarText} onPress={() => console.log("Pressed the Repositories!")}>
-        Repositories
-      </Text>
+      <ScrollView horizontal>
+        <Text fontWeight={"bold"} style={styles.appBarText} onPress={() => navigate("/")}>
+          Repositories
+        </Text>
+        <Text onPress={() => navigate("signin")}>Sign in</Text>
+      </ScrollView>
     </View>
   );
 };
