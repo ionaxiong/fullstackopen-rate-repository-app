@@ -2,7 +2,6 @@ import React from "react";
 import { View, Image, StyleSheet, Button } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
-import Count from "./Count";
 
 const styles = StyleSheet.create({
   container: {
@@ -27,26 +26,81 @@ const styles = StyleSheet.create({
   description: {
     paddingTop: 5,
   },
+  countsContainer: {
+    paddingTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  countContainer: {
+    flexDirection: "column",
+  },
+  countNumberText: {
+    textAlign: "center",
+  },
+  countTitleText: {
+    textAlign: "center",
+  },
 });
 
 const RepositoryItem = ({ item }) => {
+  const handleDisplayCounts = (count) => {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k`;
+    } else {
+      return count;
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <View testID="repositoryItem" style={styles.container}>
       <View style={styles.avatarNameDescriptionLanguageContainer}>
-        <Image source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
+        <Image testID="avatarUrl" source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
         <View style={styles.nameDescriptionLanguageContainer}>
-          <Text fontWeight={"bold"} style={styles.fullName}>
+          <Text testID="fullName" fontWeight={"bold"} style={styles.fullName}>
             {item.fullName}
           </Text>
-          <Text color={"textSecondary"} style={styles.description}>
+          <Text testID="description" color={"textSecondary"} style={styles.description}>
             {item.description}
           </Text>
           <View style={styles.languageButtonContainer}>
-            <Button title={item.language} />
+            <Button testID="language" title={item.language} />
           </View>
         </View>
       </View>
-      <Count item={item} />
+      <View style={styles.countsContainer}>
+        <View style={styles.countContainer}>
+          <Text testID="stargazersCount" fontWeight={"bold"} style={styles.countNumberText}>
+            {handleDisplayCounts(item.stargazersCount)}
+          </Text>
+          <Text color={"textSecondary"} style={styles.countTitleText}>
+            Stars
+          </Text>
+        </View>
+        <View style={styles.countContainer}>
+          <Text testID="forksCount" fontWeight={"bold"} style={styles.countNumberText}>
+            {handleDisplayCounts(item.forksCount)}
+          </Text>
+          <Text color={"textSecondary"} style={styles.countTitleText}>
+            Forks
+          </Text>
+        </View>
+        <View style={styles.countContainer}>
+          <Text testID="reviewCount" fontWeight={"bold"} style={styles.countNumberText}>
+            {handleDisplayCounts(item.reviewCount)}
+          </Text>
+          <Text color={"textSecondary"} style={styles.countTitleText}>
+            Reviews
+          </Text>
+        </View>
+        <View style={styles.countContainer}>
+          <Text testID="ratingAverage" fontWeight={"bold"} style={styles.countNumberText}>
+            {handleDisplayCounts(item.ratingAverage)}
+          </Text>
+          <Text color={"textSecondary"} style={styles.countTitleText}>
+            Rating
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
