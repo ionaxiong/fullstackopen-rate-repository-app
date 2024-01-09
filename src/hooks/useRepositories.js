@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_REPOSITORIES } from "../graphql/queries";
 
 const useRepositories = () => {
   // ------- Implement the useRepositories hook with Apollo Client -------
   const [repositories, setRepositories] = useState();
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+  const { error, loading } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       setRepositories(data.repositories);
