@@ -21,23 +21,11 @@ const initialValues = {
   password: "",
 };
 
-const SignIn = () => {
-  const [signIn] = useSignIn();
-
+export const SignInContainer = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
     password: Yup.string().required("Password is required"),
   });
-
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-    try {
-      const data = await signIn({ username, password });
-      console.log( "successfully retrieved data: ",  data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -46,6 +34,22 @@ const SignIn = () => {
       </Formik>
     </View>
   );
+};
+
+const SignIn = () => {
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    try {
+      const data = await signIn({ username, password });
+      console.log("successfully retrieved data: ", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;
