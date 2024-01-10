@@ -3,6 +3,7 @@ import { SIGN_IN } from "../graphql/mutations";
 import useAuthStorage from "./useAuthStorage";
 import { useApolloClient } from "@apollo/client";
 import { useNavigate } from "react-router-native";
+
 const useSignIn = () => {
   const [mutate, result] = useMutation(SIGN_IN);
   const authStorage = useAuthStorage();

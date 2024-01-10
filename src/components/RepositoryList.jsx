@@ -18,7 +18,7 @@ export const RepositoryListContainer = ({ repositories }) => {
   const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
 
   const handleNavigateToRepository = (item) => {
-    navigate(`/repository/${item.id}`);
+    navigate(`/repositories/${item.id}`);
   };
 
   return (

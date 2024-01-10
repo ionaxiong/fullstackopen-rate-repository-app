@@ -36,7 +36,7 @@ const AppBar = () => {
       setUser(data.me);
     },
   });
-  
+
   apolloClient.onResetStore(() => {
     getMe();
   });
@@ -60,6 +60,9 @@ const AppBar = () => {
       <ScrollView horizontal>
         <Text fontWeight={"bold"} style={styles.appBarText} onPress={() => navigate("/")}>
           Repositories
+        </Text>
+        <Text fontWeight={"bold"} style={styles.appBarText} onPress={() => navigate("/review")}>
+          Create a review
         </Text>
         {user ? (
           <Text style={styles.appBarText} onPress={handleLogout}>
