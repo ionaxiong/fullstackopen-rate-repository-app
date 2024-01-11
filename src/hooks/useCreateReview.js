@@ -22,10 +22,10 @@ const useCreateReview = () => {
     const { data } = await mutate({
       variables: {
         // review: {
-          ownerName,
-          repositoryName,
-          rating: Number(rating),
-          text,
+        ownerName,
+        repositoryName,
+        rating: Number(rating),
+        text,
         // },
       },
     });
@@ -34,7 +34,7 @@ const useCreateReview = () => {
     return data;
   };
 
-  return [createReview, result];
+  return { createReview, result };
 };
 
 export default useCreateReview;

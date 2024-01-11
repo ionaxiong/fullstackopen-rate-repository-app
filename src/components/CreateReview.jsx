@@ -24,7 +24,7 @@ const initialValues = {
 };
 
 const CreateReview = () => {
-  const [createReview] = useCreateReview();
+  const { createReview } = useCreateReview();
   const validationSchema = Yup.object().shape({
     githubUsername: Yup.string().required("Github Username is required"),
     repoName: Yup.string().required("Repository Name is required"),

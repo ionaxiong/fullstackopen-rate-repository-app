@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, StyleSheet, ScrollView, Platform } from "react-native";
 import Constants from "expo-constants";
 import theme from "../theme";
 import { useNavigate } from "react-router-native";
 import Text from "./Text";
-import { useLazyQuery } from "@apollo/client";
-import { ME } from "../graphql/queries";
 import useAuthStorage from "../hooks/useAuthStorage";
 import { useApolloClient } from "@apollo/client";
+import useGetMe from "../hooks/useGetMe";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,25 +24,7 @@ const AppBar = () => {
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [getMe, { loading, error }] = useLazyQuery(ME, {
-    fetchPolicy: "cache-and-network",
-    onError: (error) => {
-      console.log("error", error);
-    },
-    onCompleted: (data) => {
-      console.log("me", data.me);
-      setUser(data.me);
-    },
-  });
-
-  apolloClient.onResetStore(() => {
-    getMe();
-  });
-
-  useEffect(() => {
-    getMe();
-  }, []);
+  const { user, setUser, loading, error } = useGetMe({ includeReviews: false });
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
@@ -61,13 +42,26 @@ const AppBar = () => {
         <Text fontWeight={"bold"} style={styles.appBarText} onPress={() => navigate("/")}>
           Repositories
         </Text>
-        <Text fontWeight={"bold"} style={styles.appBarText} onPress={() => navigate("/review")}>
+        <Text
+          fontWeight={"bold"}
+          style={styles.appBarText}
+          onPress={() => navigate("/createreview")}
+        >
           Create a review
         </Text>
         {user ? (
-          <Text style={styles.appBarText} onPress={handleLogout}>
-            Sign out
-          </Text>
+          <>
+            <Text
+              fontWeight={"bold"}
+              style={styles.appBarText}
+              onPress={() => navigate("/myreviews")}
+            >
+              My reviews
+            </Text>
+            <Text style={styles.appBarText} onPress={handleLogout}>
+              Sign out
+            </Text>
+          </>
         ) : (
           <>
             <Text style={styles.appBarText} onPress={() => navigate("/signin")}>
