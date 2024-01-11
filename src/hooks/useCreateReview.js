@@ -17,6 +17,7 @@ const useCreateReview = () => {
   }
 
   const createReview = async ({ ownerName, repositoryName, rating, text }) => {
+    // second problem: the review variables were not being passed to the mutation
     console.log("createReview", { ownerName, repositoryName, rating, text });
     const { data } = await mutate({
       variables: {

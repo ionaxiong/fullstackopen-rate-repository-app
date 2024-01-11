@@ -69,9 +69,14 @@ const AppBar = () => {
             Sign out
           </Text>
         ) : (
-          <Text style={styles.appBarText} onPress={() => navigate("/signin")}>
-            Sign in
-          </Text>
+          <>
+            <Text style={styles.appBarText} onPress={() => navigate("/signin")}>
+              Sign in
+            </Text>
+            <Text style={styles.appBarText} onPress={() => navigate("/signup")}>
+              Sign up
+            </Text>
+          </>
         )}
       </ScrollView>
     </View>

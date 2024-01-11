@@ -35,12 +35,14 @@ const CreateReview = () => {
   const onSubmit = async (values) => {
     const { githubUsername, repoName, rating, review } = values;
     try {
+      // first problem: the variables object is not formatted correctly
       const variables = {
         repositoryName: repoName,
         ownerName: githubUsername,
         rating,
         text: review,
       };
+      console.log("onSubmit", variables);
       const data = await createReview(variables);
       console.log("successfully retrieved data: ", data);
     } catch (error) {
