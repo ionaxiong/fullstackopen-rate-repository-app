@@ -5,11 +5,21 @@ import useRepositories from "../hooks/useRepositories";
 import { useNavigate } from "react-router-native";
 import SortPrinciplePicker from "./SortPrinciplePicker";
 import { useState } from "react";
+import TextInput from "./TextInput";
+import { useDebounce } from "use-debounce";
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
     backgroundColor: theme.colors.mainBackground,
+  },
+  listHeaderComponent: {
+    backgroundColor: theme.colors.mainBackground,
+  },
+  textInput: {
+    borderColor: theme.colors.transparent,
+    backgroundColor: theme.colors.itemBackground,
+    borderRadius: 10,
   },
 });
 
@@ -21,6 +31,8 @@ export const RepositoryListContainer = ({
   setOrderBy,
   orderDirection,
   setOrderDirection,
+  searchKeyword,
+  setSearchKeyword,
 }) => {
   const navigate = useNavigate();
   const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
@@ -30,24 +42,33 @@ export const RepositoryListContainer = ({
   };
 
   return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => (
-        <Pressable onPress={() => handleNavigateToRepository(item)}>
-          <RepositoryItem item={item} />
-        </Pressable>
-      )}
-      keyExtractor={(item) => item.id}
-      ListHeaderComponent={() => (
+    <>
+      <View style={styles.listHeaderComponent}>
+        <TextInput
+          style={styles.textInput}
+          inlineImageLeft="search_icon"
+          placeholder="Search"
+          value={searchKeyword}
+          onChangeText={(text) => setSearchKeyword(text)}
+        />
         <SortPrinciplePicker
           orderBy={orderBy}
           setOrderBy={setOrderBy}
           orderDirection={orderDirection}
           setOrderDirection={setOrderDirection}
         />
-      )}
-    />
+      </View>
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => handleNavigateToRepository(item)}>
+            <RepositoryItem item={item} />
+          </Pressable>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+    </>
   );
 };
 
@@ -55,7 +76,9 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT" || "RATING_AVERAGE");
   const [orderDirection, setOrderDirection] = useState("DESC" || "ASC");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const { repositories } = useRepositories(orderBy, orderDirection, searchKeyword);
+  const [debouncedSearchKeyword] = useDebounce(searchKeyword, 1000);
+
+  const { repositories } = useRepositories(orderBy, orderDirection, debouncedSearchKeyword);
 
   return (
     <RepositoryListContainer

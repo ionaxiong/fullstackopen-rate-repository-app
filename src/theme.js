@@ -10,6 +10,7 @@ const theme = {
     itemBackground: "#ffffff",
     onAppBar: "#ffffff",
     error: "#d73a4a",
+    transparent: "transparent",
   },
   fontSizes: {
     body: 14,

@@ -1,11 +1,14 @@
 import React from "react";
 import { Picker } from "@react-native-picker/picker";
 import { StyleSheet } from "react-native";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   picker: {
     height: 60,
     padding: 10,
+    borderColor: theme.colors.transparent,
+    backgroundColor: theme.colors.transparent,
   },
 });
 
