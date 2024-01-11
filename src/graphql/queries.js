@@ -60,7 +60,7 @@ export const ME = gql`
 `;
 
 export const GET_REPOSITORY = gql`
-  query repository($id: ID!) {
+  query repository($id: ID!, $first: Int, $after: String) {
     repository(id: $id) {
       id
       ownerName
@@ -78,7 +78,7 @@ export const GET_REPOSITORY = gql`
       description
       language
       userHasReviewed
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             id
@@ -90,6 +90,11 @@ export const GET_REPOSITORY = gql`
               username
             }
           }
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }
     }

@@ -26,9 +26,8 @@ const HeaderWithSeparator = ({ children }) => {
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { reviews, repository, loading, error } = useRepository(id);
-  console.log("id", id)
-  console.log("repository", repository)
+  const first = 3;
+  const { reviews, repository, loading, error, fetchMore } = useRepository(id, first);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
@@ -42,6 +41,8 @@ const SingleRepository = () => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
+      onEndReached={fetchMore}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={() => (
         <HeaderWithSeparator>
           <RepositoryInfo repository={repository} />
