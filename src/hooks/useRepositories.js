@@ -1,20 +1,22 @@
 import { useState } from "react";
+// import { useLazyQuery } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { GET_REPOSITORIES } from "../graphql/queries";
 
-const useRepositories = () => {
+const useRepositories = (orderBy, orderDirection, searchKeyword) => {
   // ------- Implement the useRepositories hook with Apollo Client -------
   const [repositories, setRepositories] = useState();
+
   const { error, loading } = useQuery(GET_REPOSITORIES, {
+    variables: { orderBy, orderDirection, searchKeyword },
     fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       setRepositories(data.repositories);
     },
+    onError: (error) => {
+      console.log(error);
+    },
   });
-
-  if (loading) {
-    return "Loading...";
-  }
 
   if (error) {
     return `Error! ${error.message}`;
