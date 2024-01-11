@@ -47,6 +47,7 @@ export const ME = gql`
             text
             rating
             createdAt
+            repositoryId
             user {
               id
               username

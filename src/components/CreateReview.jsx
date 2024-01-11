@@ -42,9 +42,7 @@ const CreateReview = () => {
         rating,
         text: review,
       };
-      console.log("onSubmit", variables);
-      const data = await createReview(variables);
-      console.log("successfully retrieved data: ", data);
+      await createReview(variables);
     } catch (error) {
       console.log(error);
     }

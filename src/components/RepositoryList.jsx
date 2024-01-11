@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-native";
 import SortPrinciplePicker from "./SortPrinciplePicker";
 import { useState } from "react";
 import TextInput from "./TextInput";
-import { useDebounce } from "use-debounce";
+
+// import { useDebounce } from "use-debounce";
 
 const styles = StyleSheet.create({
   separator: {
@@ -76,9 +77,9 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT" || "RATING_AVERAGE");
   const [orderDirection, setOrderDirection] = useState("DESC" || "ASC");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [debouncedSearchKeyword] = useDebounce(searchKeyword, 1000);
-
-  const { repositories } = useRepositories(orderBy, orderDirection, debouncedSearchKeyword);
+  // const [debouncedSearchKeyword] = useDebounce(searchKeyword, 1000);
+  // const submitSearchKeyword = Platform.OS === "web" ? debouncedSearchKeyword : searchKeyword;
+  const { repositories } = useRepositories(orderBy, orderDirection, searchKeyword);
 
   return (
     <RepositoryListContainer

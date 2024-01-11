@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const MyReviewList = () => {
-  const { reviews, loading, error } = useGetMe({ includeReviews: true });
+  const { reviews, loading, error, refetch } = useGetMe({ includeReviews: true });
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
@@ -23,7 +23,7 @@ const MyReviewList = () => {
     <FlatList
       data={reviews}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => <ReviewItem review={item} showButtons={true} refetch={refetch} />}
       keyExtractor={({ id }) => id}
     />
   );

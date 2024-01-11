@@ -13,13 +13,15 @@ const useGetMe = ({ includeReviews }) => {
       console.log("error", error);
     },
     onCompleted: (data) => {
-      console.log("me", data.me);
       const reviewNodes = data.me.reviews ? data.me.reviews.edges.map((edge) => edge.node) : [];
-      console.log("reviewNodes", reviewNodes);
       setUser(data.me);
       setReviews(reviewNodes);
     },
   });
+
+  const refetch = () => {
+    getMe({ variables: { includeReviews } });
+  };
 
   apolloClient.onResetStore(() => {
     getMe({ variables: { includeReviews } });
@@ -29,7 +31,7 @@ const useGetMe = ({ includeReviews }) => {
     getMe({ variables: { includeReviews } });
   }, []);
 
-  return { loading, error, setUser, user, reviews };
+  return { loading, error, setUser, user, reviews, refetch };
 };
 
 export default useGetMe;

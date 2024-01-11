@@ -27,6 +27,8 @@ const HeaderWithSeparator = ({ children }) => {
 const SingleRepository = () => {
   const { id } = useParams();
   const { reviews, repository, loading, error } = useRepository(id);
+  console.log("id", id)
+  console.log("repository", repository)
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
